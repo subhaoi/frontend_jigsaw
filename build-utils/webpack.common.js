@@ -9,8 +9,12 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['babel-loader'],
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      }
     ],
   },
   resolve: {
@@ -19,7 +23,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Advanced React with Webpack Setup',
+      title: 'Jigsaw website',
       template: './src/index.html',
     }),
   ],
