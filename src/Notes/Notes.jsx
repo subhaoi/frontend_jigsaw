@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AppNavBar } from '../AppNavBar';
 import { Button } from 'react-bootstrap';
 
 class Notes extends Component {
@@ -9,7 +10,10 @@ class Notes extends Component {
 
   render() {
     return (
+      <div>
+        <AppNavBar/>
         <Button>Notes</Button>
+      </div>
     );
   }
 }
