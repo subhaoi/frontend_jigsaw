@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { BrowserRouter, Route, Switch  } from 'react-router-dom';
+import { CustomerInfo } from '../CustomerInfo';
+import { Documents } from '../Documents';
+import { Notes } from '../Notes';
+import { Home } from '../Home';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
@@ -10,17 +14,16 @@ class App extends Component {
 
   render() {
     return (
-      <Navbar bg="light" expand="lg">
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Chat</Nav.Link>
-            <Nav.Link href="#link">Customer Info</Nav.Link>
-            <Nav.Link href="#link">Documents</Nav.Link>
-            <Nav.Link href="#link">Notes</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route path='/customerinfo' component={CustomerInfo}/>
+          <Route path='/documents' component={Documents}/>
+          <Route path='/notes' component={Notes}/>
+        </Switch>
+      </BrowserRouter>
+      </div>
     );
   }
 }

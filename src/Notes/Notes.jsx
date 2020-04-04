@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 
-class CustomerInfo extends Component {
+class Notes extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -9,9 +9,9 @@ class CustomerInfo extends Component {
 
   render() {
     return (
-        <Button>CustomerInfo</Button>
+        <Button>Notes</Button>
     );
   }
 }
 
-export { CustomerInfo };
+export { Notes };
