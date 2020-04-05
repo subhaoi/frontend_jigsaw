@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppNavBar } from '../AppNavBar';
 import { Button, Container, Row, Col} from 'react-bootstrap';
 import { SideBar } from '../SideBar';
+import { ChatBox } from '../ChatBox';
 
 
 class Home extends Component {
@@ -20,7 +21,7 @@ class Home extends Component {
               </Col>
               <Col>
                 <AppNavBar />
-                <Button>Home</Button>
+                <ChatBox />
               </Col>
             </Row>
           </Container>

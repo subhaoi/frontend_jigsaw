@@ -13,10 +13,7 @@ class Documents extends Component {
       <div>
         <Container fluid>
           <Row>
-            <Col md="3">
-            </Col>
             <Col>
-              <AppNavBar />
               <Button>Documents</Button>
             </Col>
           </Row>
