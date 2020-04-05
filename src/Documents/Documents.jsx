@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppNavBar } from '../AppNavBar';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row, Col} from 'react-bootstrap';
 
 class Documents extends Component {
   constructor(props) {
@@ -10,10 +10,18 @@ class Documents extends Component {
 
   render() {
     return (
-        <div>
-          <AppNavBar/>
-          <Button>Documents</Button>
-        </div>
+      <div>
+        <Container fluid>
+          <Row>
+            <Col md="3">
+            </Col>
+            <Col>
+              <AppNavBar />
+              <Button>Documents</Button>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }
