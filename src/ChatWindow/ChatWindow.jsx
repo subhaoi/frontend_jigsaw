@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AppNavBar } from '../AppNavBar';
 import { Button, Container, Row, Col} from 'react-bootstrap';
 
-class ChatBox extends Component {
+class ChatWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -23,4 +23,4 @@ class ChatBox extends Component {
   }
 }
 
-export { ChatBox };
+export { ChatWindow };
