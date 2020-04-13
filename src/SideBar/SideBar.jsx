@@ -9,29 +9,23 @@ class SideBar extends Component{
     constructor(props) {
         super(props);
         this.state = {
-          tableData:[
-            {'user': 'user1', 'read': 'no'}],};
-        
-        this.phoneNumberClicked = this.phoneNumberClicked.bind(this);
-        this.openConversation = this.openConversation.bind(this);
-        this.closeConversation = this.closeConversation.bind(this);
+          tableData:
+          [
+            {'phone_number': '+15109442407', 'read': 'yes'},
+            {'phone_number': '+13129331585', 'read': 'no'}
+          ]
+        }
+        this.getData = this.getData.bind(this)
 
       }
       componentDidMount() {
-        axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_closed_by_user', {
-          conversation_id: 110
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        
         axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_phone_numbers_by_username', {
           username: 'test_user@test_user.com'
         })
-        .then(function (response) {
-          console.log(response);
+        .then(response => {
+          console.log(response.data.phone_numbers)
+          // this.setState({ tableData: response.data });
         })
         .catch(function (error) {
           console.log(error);
@@ -39,59 +33,11 @@ class SideBar extends Component{
         
       }
 
-      phoneNumberClicked = function(){ axios({
-        method: 'post',
-        url: 'http://a2f25d0b.ngrok.io/all_messages_for_phone_number_and_username',
-        data: {
-          "username": "test_user@test_user.com",
-          "phone_number": this.state.clicked_number
-        },
-        headers:{
-          "Content-Type" : "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        
-      })
-        .then(function (response) {
-          console.log(response)
-        });
-      }
-
-      openConversation = function(){axios({
-        method: 'post',
-        url: 'http://a2f25d0b.ngrok.io/conversation_opened_by_user',
-        data: {
-          "conversation_id": 110
-        },
-        headers:{
-          "Content-Type" : "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        
-      })
-        .then(function (response) {
-          console.log(response)
-        });
-
-      }
-
-      closeConversation = function(){axios({
-        method: 'post',
-        url: 'http://a2f25d0b.ngrok.io/conversation_closed_by_user',
-        data: {
-          "conversation_id": 110
-        },
-        headers:{
-          "Content-Type" : "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        
-      })
-        .then(function (response) {
-          console.log(response)
-        });
-
-      }
+      getData(val){
+        // do not forget to bind getData in constructor
+        // console.log(val);
+        this.props.sendDataFromSideBarToHome(val)
+    }
 
       render() {
         return (
@@ -104,11 +50,10 @@ class SideBar extends Component{
                     </Row>
                     <Row>
                       <Col>
-                        <a className="float-right">Plus Button</a>
                       </Col>
                   </Row>
                   <Row>
-                    <Table data={this.state.tableData}/>
+                    <Table data={this.state.tableData} sendDataFromTableToSideBar={this.getData}/>
                   </Row>
                 </Container>
             </div>

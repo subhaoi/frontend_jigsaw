@@ -48,8 +48,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0",
-    "react-chatbox-component": "0.0.5",
     "react-dom": "^16.10.2",
+    "react-md-spinner": "^1.0.0",
     "react-router-dom": "^5.1.2"
   }
 }
