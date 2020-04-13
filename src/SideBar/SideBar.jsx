@@ -18,36 +18,25 @@ class SideBar extends Component{
 
       }
       componentDidMount() {
-        axios({
-          method: 'post',
-          url: 'http://a2f25d0b.ngrok.io/all_phone_numbers_by_username',
-          data :{
-            username: 'test_user@test_user.com'
-          },
-          headers:{
-            'Content-Type' : 'application/json',
-            'Access-Control-Allow-Origin': '*'
-          }
-        }).then(function (response) {
-            console.log(response)
-          });
-
-          axios({
-            method: 'post',
-            url: 'http://a2f25d0b.ngrok.io/conversation_opened_by_user',
-            data: {
-              "conversation_id": 110
-            },
-            headers:{
-              "Content-Type" : "application/json",
-              "Access-Control-Allow-Origin": "*",
-            },
-            
-          })
-            .then(function (response) {
-              console.log(response)
-            });
-    
+        axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_closed_by_user', {
+          conversation_id: 110
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_phone_numbers_by_username', {
+          username: 'test_user@test_user.com'
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
       }
 
       phoneNumberClicked = function(){ axios({
