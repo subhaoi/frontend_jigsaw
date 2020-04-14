@@ -74,7 +74,11 @@ var MessageList = function (_React$Component) {
             var isUser = user.uid === message.sender.uid;
             var renderName = void 0;
             if (isUser) {
-              renderName = null;
+              renderName = React.createElement(
+                'div',
+                { className: 'sender-name' },
+                message.sender.name
+              );
             } else {
               renderName = React.createElement(
                 'div',

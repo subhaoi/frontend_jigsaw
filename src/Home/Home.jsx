@@ -54,7 +54,7 @@ class Home extends Component {
                 "sender": {
                   "name": value.owner,
                   "uid": "user1",
-                  "avatar": "https://image.flaticon.com/icons/svg/12/12605.svg",
+                  "avatar": "https://i.ibb.co/27wyhhN/f.jpg",
                 }
               }
       }
@@ -65,7 +65,7 @@ class Home extends Component {
                 "sender": {
                   "name": value.owner,
                   "uid": "user2",
-                  "avatar": "https://image.flaticon.com/icons/svg/503/503013.svg",
+                  "avatar": "https://i.ibb.co/b77Q0K4/c.jpg",
                 }
               }
       }  

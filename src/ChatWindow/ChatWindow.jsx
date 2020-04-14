@@ -86,7 +86,7 @@ class ChatWindow extends Component {
                 "sender": {
                   "name": value.owner,
                   "uid": "user1",
-                  "avatar": "https://image.flaticon.com/icons/svg/12/12605.svg",
+                  "avatar": "https://i.ibb.co/27wyhhN/f.jpg",
                 }
               }
       }
@@ -97,7 +97,7 @@ class ChatWindow extends Component {
                 "sender": {
                   "name": value.owner,
                   "uid": "user2",
-                  "avatar": "https://image.flaticon.com/icons/svg/503/503013.svg",
+                  "avatar": "https://i.ibb.co/b77Q0K4/c.jpg",
                 }
               }
       }
@@ -126,7 +126,7 @@ class ChatWindow extends Component {
 
   componentDidMount() {
     this.setState({ messages: this.props.messages, user: this.props.user });
-    // this.interval = setInterval(() =>  this.retrieveMessagesAgain(this.props.phone_number) , 10000);
+    this.interval = setInterval(() =>  this.retrieveMessagesAgain(this.props.phone_number) , 10000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);

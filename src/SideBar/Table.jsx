@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { number } from 'prop-types';
 
-
 export default class Table extends React.Component {
     
     constructor(props){
@@ -13,7 +12,8 @@ export default class Table extends React.Component {
       this.phoneNumberClicked = this.phoneNumberClicked.bind(this);
       this.openConversation = this.openConversation.bind(this);
       this.state = {
-        conversation_id: number
+        conversation_id: number,
+        clicked: false
       };
 
     }
@@ -40,6 +40,7 @@ export default class Table extends React.Component {
     
     handleClick= function(row) {
       this.phoneNumberClicked(row);
+      this.setState({ clicked: true })
     }
 
     phoneNumberClicked = function(phone_number){ 

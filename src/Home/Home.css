@@ -9,3 +9,7 @@
 .closediv{
     float: right !important;
 }
+
+.col{
+    padding:0 !important;
+}
