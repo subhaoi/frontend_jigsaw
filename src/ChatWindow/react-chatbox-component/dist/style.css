@@ -184,11 +184,11 @@
 }
 
 .is-user {
-  background-color: #1546DC;
+  background-color: #E8ECF8;
 }
 
 .is-other {
-  background-color: #FFF;
+  background-color: #F7FFFA;
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1)
 }

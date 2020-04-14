@@ -1,7 +1,3 @@
-table, td, th {
-
-  }
-  
   table {
     margin-top: 10px;
     border-collapse: collapse;
@@ -9,13 +5,13 @@ table, td, th {
   }
   
   tr, div.phonenumber {
-    height: 50px;
-    text-align: left;
+    height: 100px;
+    text-align: center;
     padding-left: 10px;
-    background-color: white;
+    background-color: #F3F8FB;
     width: 100%;
-    border: 10px solid #F3F8FB; 
     color:#264AFF;
+    font-size: 20px;
   }
 
   .no{
@@ -39,7 +35,7 @@ table, td, th {
 
   .green {
     color: green;
-    font-size: 35px;
+    font-size: 70px;
   }
 
   .message-input {
@@ -48,4 +44,24 @@ table, td, th {
 
   form{
     width:100%
+  }
+
+  .buttonclass{
+    height: 100px;
+    text-align: center;
+    padding-left: 10px;
+    background-color :#FF852D !important;
+    width: 100%;
+    color:#FFFFFF;
+    font-size: 20px;
+  }
+
+  .inputclass{
+    height: 100px;
+    text-align: center;
+    padding-left: 10px;
+    background-color :#FFFFFF !important;
+    width: 100%;
+    color:#000000;
+    font-size: 20px;
   }

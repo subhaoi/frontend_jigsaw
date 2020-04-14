@@ -102,7 +102,7 @@ var MessageList = function (_React$Component) {
                   'div',
                   {
                     className: 'message',
-                    style: { color: isUser ? '#FFF' : '#2D313F' } },
+                    style: { color: isUser ? '#000' : '#2D313F' } },
                   message.text
                 )
               )

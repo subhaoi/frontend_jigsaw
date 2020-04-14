@@ -54,7 +54,7 @@ export default class Table extends React.Component {
             "conversation_id":Number(Object.keys(response.data.messages)),
             "phone_number": phone_number
           })
-          this.openConversation(Number(Object.keys(response.data.messages)))
+          this.openConversation((Object.keys(response.data.messages)))
         })
         .catch(function (error) {
           console.log(error);
@@ -66,7 +66,7 @@ export default class Table extends React.Component {
         "conversation_id": conversation_id
         })
         .then(response => {
-          console.log(response.data.message)
+          // console.log(response.data.message)
         })
         .catch(function (error) {
           console.log(error);

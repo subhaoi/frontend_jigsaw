@@ -25,8 +25,7 @@ class Home extends Component {
     this.onClick = this.onClick.bind(this)
     this.getData2 = this.getData2.bind(this)
     this.getData3 = this.getData3.bind(this)
-    this.closeConversation = this.closeConversation.bind(this)
-    
+    this.getData4 = this.getData4.bind(this)   
   }
 
   getData(val){
@@ -39,7 +38,9 @@ class Home extends Component {
   getData3(val){
     this.setState({phone_number:val, conversation_id: '', messages:[], showChatwindow:true})
   }
-
+  getData4(val){
+    this.setState({showChatwindow: val})
+  }
   onClick = function(val) {
     this.setState({messages : [],showChatwindow: false})
     let a = (Object.values(val)[0])
@@ -75,17 +76,6 @@ class Home extends Component {
     this.setState({ showChatwindow: true });
   }
 
-  closeConversation = function(){
-    axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_closed_by_user',{
-      "conversation_id": this.state.conversation_id
-    }).then(response =>{
-      this.setState({showChatwindow: false})
-    }).catch(function (error) {
-      console.log(error);
-    });  
-    }
-
-
   render() {
     return (
         <div>
@@ -101,15 +91,10 @@ class Home extends Component {
               <Col>
                 {/* <AppNavBar /> */}
                 <div className="lightblue">
-                  <Container>
-                    <Row style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    {this.state.showChatwindow ?
-                    <Button variant="danger" onClick={this.closeConversation}>Close chat</Button> 
-                    :null}
-                    </Row>
-                  </Container>
                   { this.state.showChatwindow ?<ChatWindow messages={this.state.messages} 
-                  phone_number = {this.state.phone_number} conversation_id = {this.state.conversation_id} user={this.state.user}/> : null}
+                  phone_number = {this.state.phone_number} 
+                  conversation_id = {this.state.conversation_id} 
+                  user={this.state.user} closeChat={this.getData4}/> : null}
                 </div>
               </Col>
             </Row>

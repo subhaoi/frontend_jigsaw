@@ -14,13 +14,15 @@ class ChatWindow extends Component {
       messages: [],
       user: {},
       phone_number: number,
-      value:''
+      value:'',
+      conversation_id:number
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.retrieveMessagesAgain = this.retrieveMessagesAgain.bind(this);
     this.formattAllMessages = this.formattAllMessages.bind(this);
+    this.closeConversation = this.closeConversation.bind(this);
   }
 
   handleChange(event) {
@@ -52,14 +54,12 @@ class ChatWindow extends Component {
     }
     else if(this.state.messages.length == 0){
       axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/message_sent_by_user', {
-      'conversation_id': "",
       'body': message , 
       'phone_number': this.props.phone_number,
       'new_conversation': true
       })
       .then(response => {
-      console.log(response.data)
-      console.log(this.props.phone_number)
+      this.setState({conversation_id : (response.data.conversation_id)})
       this.retrieveMessagesAgain(this.props.phone_number)
 
       })
@@ -126,24 +126,48 @@ class ChatWindow extends Component {
 
   componentDidMount() {
     this.setState({ messages: this.props.messages, user: this.props.user });
-    this.interval = setInterval(() =>  this.retrieveMessagesAgain(this.props.phone_number) , 10000);
+    // this.interval = setInterval(() =>  this.retrieveMessagesAgain(this.props.phone_number) , 10000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+
+  closeConversation = function(){
+      this.props.closeChat(false)
+      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_closed_by_user',{
+      "conversation_id": this.props.conversation_id
+    }).then(response =>{
+      this.props.closeChat(false)
+    }).catch(function (error) {
+      console.log(error);
+    });      
+  }
+
   render() {
     return (
       <div className='container' style={{maxWidth: '1000px', paddingTop: '50px'}}>
         <ChatBox messages={this.state.messages} />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type = 'text'
-            className = 'form-control message-input'
-            placeholder = 'Type something'
-            value = {this.state.value}
-            onChange={this.handleChange}
-          />
-        </form>
+        <div className='container'>
+          <div className="row">
+            <div className="col-md-8">
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  type = 'text'
+                  className= 'form-control message-input'
+                  placeholder = 'Type something'
+                  value = {this.state.value}
+                  onChange={this.handleChange}
+                />
+              </form>
+            </div>
+            <div className="col-md-2">
+              <Button className='formbutton' onClick={this.handleSubmit}>Reply</Button>
+            </div>
+            <div className="col-md-2">
+              <Button variant="danger" className='formbutton' onClick={this.closeConversation}>Close Chat</Button>
+            </div>
+          </div>
+        </div>
         
       </div>
     )
