@@ -150,7 +150,7 @@ class ChatWindow extends Component {
         <div className='container'>
           <div className="row">
             <div className="col-md-8">
-              <form onSubmit={this.handleSubmit}>
+              <form className="chatform" onSubmit={this.handleSubmit}>
                 <input
                   type = 'text'
                   className= 'form-control message-input'

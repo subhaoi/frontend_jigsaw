@@ -5,8 +5,8 @@
     padding: 6px 20px;
   }
 
-  form{
-    margin:20px;
+  .chatform{
+    margin:20px !important;
   }
 
   .formbutton{
