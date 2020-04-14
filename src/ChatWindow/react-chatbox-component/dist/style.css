@@ -108,7 +108,6 @@
 .form-control:focus {
   border-color: none !important;
   box-shadow: none !important;
-  border-radius: 20px;
 }
 
 .msg-footer {
