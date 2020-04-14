@@ -16,11 +16,13 @@ class ChatWindow extends Component {
       phone_number: number,
       value:''
     };
-    this.newSubmit = this.onSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.closeConversation = this.closeConversation.bind(this);
+    this.retrieveMessagesAgain = this.retrieveMessagesAgain.bind(this);
+    this.formattAllMessages = this.formattAllMessages.bind(this);
   }
+
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -31,64 +33,104 @@ class ChatWindow extends Component {
     this.onSubmit(message);
     this.setState({ value: '' });
   }
-   onSubmit = function(message){
-    console.log(message);
-    var joined = this.state.messages.concat({
-      "text": this.state.value,
-      "id": "9",
-      "sender": {
-        "name": "Ironman",
-        "uid": "user1",
-        "avatar": "https://data.cometchat.com/assets/images/avatars/ironman.png",
-      },
-    })
-    this.setState({ messages: joined })
 
-    axios({
-      method: 'post',
-      url: 'http://a2f25d0b.ngrok.io/message_sent_by_user',
-      data: {
-        'conversation_id': 110,
-        'body': message , 
-        'phone_number': this.state.phone_number
-      },
-      headers:{
-        "Content-Type" : "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
+  onSubmit = function(message){
+    if(this.state.messages.length > 0){
+      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/message_sent_by_user', {
+      'conversation_id': this.props.conversation_id,
+      'body': message , 
+      'phone_number': this.props.phone_number
+      })
+      .then(response => {
+      console.log(response.data)
+      this.retrieveMessagesAgain(this.props.phone_number)
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+    else if(this.state.messages.length == 0){
+      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/message_sent_by_user', {
+      'conversation_id': "",
+      'body': message , 
+      'phone_number': this.props.phone_number,
+      'new_conversation': true
+      })
+      .then(response => {
+      console.log(response.data)
+      console.log(this.props.phone_number)
+      this.retrieveMessagesAgain(this.props.phone_number)
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+    
+  }
+
+  formattAllMessages = function(val) {
+    this.setState({messages : []})
+
+    let a = (Object.values(val)[0])
+    let j =0
+    let formattedMessages = []
+    for (let value of Object.values(a)) {
+      // console.log(value.owner);
+      j++
+      if(value.owner == 'rxil'){
+        var dictStructure =  {
+                "text": value.body,
+                "id": value.id,
+                "sender": {
+                  "name": value.owner,
+                  "uid": "user1",
+                  "avatar": "https://image.flaticon.com/icons/svg/12/12605.svg",
+                }
+              }
+      }
+      else if(value.owner == 'customer') {
+        var dictStructure =  {
+                "text": value.body,
+                "id": value.id,
+                "sender": {
+                  "name": value.owner,
+                  "uid": "user2",
+                  "avatar": "https://image.flaticon.com/icons/svg/503/503013.svg",
+                }
+              }
+      }
       
-    })
-      .then(function (response) {
-        console.log(response)
+      formattedMessages.unshift(dictStructure)
+    }
+
+    this.setState({messages : formattedMessages})
+  }
+
+  retrieveMessagesAgain = function(phone_number){ 
+    axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_messages_for_phone_number_and_username', {
+        username: 'test_user@test_user.com',
+        "phone_number": phone_number
+      })
+      .then(response => {
+        var receivedmessages = response.data.messages
+        this.formattAllMessages(receivedmessages)
+
+      })
+      .catch(function (error) {
+        console.log(error);
       });
 
-    
   }
-
-  closeConversation = function(){axios({
-    method: 'post',
-    url: 'http://a2f25d0b.ngrok.io/conversation_closed_by_user',
-    data: {
-      "conversation_id": 110
-    },
-    headers:{
-      "Content-Type" : "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    
-  })
-    .then(function (response) {
-      console.log(response)
-    });
-
-  }
-
 
   componentDidMount() {
     this.setState({ messages: this.props.messages, user: this.props.user });
-    console.log(this.props.newmessages)
+    this.interval = setInterval(() =>  this.retrieveMessagesAgain(this.props.phone_number) , 10000);
   }
-
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   render() {
     return (
       <div className='container' style={{maxWidth: '1000px', paddingTop: '50px'}}>

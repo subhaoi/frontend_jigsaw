@@ -27,7 +27,7 @@ export default class Table extends React.Component {
       var keys = this.getKeys();
       return items.map((row, index)=>{
         return (
-          <tr className={row.read} onClick={()=>this.handleClick(row.phone_number)}><RenderRow key={index} data={row} keys={keys}/></tr>)
+          <tr className={row.seen} onClick={()=>this.handleClick(row.phone_number)}><RenderRow key={index} data={row} keys={keys}/></tr>)
       })
     }
     
@@ -42,7 +42,11 @@ export default class Table extends React.Component {
         })
         .then(response => {
           var receivedmessages = response.data.messages
-          this.props.sendDataFromTableToSideBar(receivedmessages) 
+          this.props.sendDataFromTableToSideBar(receivedmessages)
+          this.props.sendIDandNumber({
+            "conversation_id":Number(Object.keys(response.data.messages)),
+            "phone_number": phone_number
+          })
           this.openConversation(Number(Object.keys(response.data.messages)))
         })
         .catch(function (error) {

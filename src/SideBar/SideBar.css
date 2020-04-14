@@ -13,14 +13,18 @@ table, td, th {
     text-align: center;
   }
 
-  .yes{
+  .no{
     background-color: #90EE90;
   }
 
-  .no{
+  .yes{
 
   }
 
   img{
     margin : 10px;
+  }
+
+  .fullscreen{
+    height:100% !important;
   }

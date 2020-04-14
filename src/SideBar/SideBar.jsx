@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col, Media, Image, p, span, Glyphicon} from 'react-bootstrap';
+import { Button, Container, Row, Col, Media, Image} from 'react-bootstrap';
 import Table from './Table.jsx';
 import axios from 'axios';
 import './SideBar.css'
@@ -13,9 +13,16 @@ class SideBar extends Component{
           [
             {'phone_number': '+15109442407', 'read': 'yes'},
             {'phone_number': '+13129331585', 'read': 'no'}
-          ]
+          ],
+          displayForm: false,
+          value: ''
         }
         this.getData = this.getData.bind(this)
+        this.getData2 = this.getData2.bind(this)
+        this.getPhoneNumber = this.getPhoneNumber.bind(this)
+        this.startNewChat = this.startNewChat.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
       }
       componentDidMount() {
@@ -24,8 +31,25 @@ class SideBar extends Component{
           username: 'test_user@test_user.com'
         })
         .then(response => {
-          console.log(response.data.phone_numbers)
-          // this.setState({ tableData: response.data });
+          this.setState({ tableData: response.data.phone_numbers });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        this.interval = setInterval(() => this.getPhoneNumber(), 3000);
+      }
+
+      componentWillUnmount() {
+        clearInterval(this.interval);
+      }
+
+      getPhoneNumber() {
+        
+        axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_phone_numbers_by_username', {
+          username: 'test_user@test_user.com'
+        })
+        .then(response => {
+          this.setState({ tableData: response.data.phone_numbers });
         })
         .catch(function (error) {
           console.log(error);
@@ -38,11 +62,30 @@ class SideBar extends Component{
         // console.log(val);
         this.props.sendDataFromSideBarToHome(val)
     }
+    getData2(val){
+      // do not forget to bind getData in constructor
+      this.props.sendDataFromSideBarToHome2(val)
+  }
+
+  startNewChat = function(){
+    this.setState({displayForm : true})
+  }
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    var message = this.state.value;
+    // this.onSubmit(message);
+    this.props.sendNewNumber(message)
+    this.setState({ value: '' , displayForm:false});
+  }
 
       render() {
         return (
             <div>
-                <Container>
+                <Container className="fullscreen">
                   <Row>
                       <Col>
                           <Image src="https://loremflickr.com/50/50" />
@@ -50,10 +93,21 @@ class SideBar extends Component{
                     </Row>
                     <Row>
                       <Col>
+                        <Button onClick={this.startNewChat}>New Chat</Button>
+                        {this.state.displayForm ? 
+                        <form onSubmit={this.handleSubmit}>
+                        <input
+                          type = 'text'
+                          placeholder = 'Enter New Number'
+                          value = {this.state.value}
+                          onChange={this.handleChange}
+                        />
+                      </form>
+                        : null}
                       </Col>
                   </Row>
                   <Row>
-                    <Table data={this.state.tableData} sendDataFromTableToSideBar={this.getData}/>
+                    <Table data={this.state.tableData} sendDataFromTableToSideBar={this.getData} sendIDandNumber={this.getData2}/>
                   </Row>
                 </Container>
             </div>
