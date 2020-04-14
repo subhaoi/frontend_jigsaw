@@ -1,24 +1,31 @@
 table, td, th {
-    border: 1px solid black;
+
   }
   
   table {
-    margin: 10px;
+    margin-top: 10px;
     border-collapse: collapse;
     width: 100%;
   }
   
-  tr {
-    height: 60px;
-    text-align: center;
+  tr, div.phonenumber {
+    height: 50px;
+    text-align: left;
+    padding-left: 10px;
+    background-color: white;
+    width: 100%;
+    border: 10px solid #F3F8FB; 
+    color:#264AFF;
   }
 
   .no{
-    background-color: #90EE90;
+   justify-content: flex-end;
+    flex-direction: row;
   }
 
   .yes{
-
+    justify-content: flex-end;
+    flex-direction: row;
   }
 
   img{
@@ -27,4 +34,18 @@ table, td, th {
 
   .fullscreen{
     height:100% !important;
+    background-color: #F3F8FB;
+  }
+
+  .green {
+    color: green;
+    font-size: 35px;
+  }
+
+  .message-input {
+    padding: 0px 20px;
+  }
+
+  form{
+    width:100%
   }

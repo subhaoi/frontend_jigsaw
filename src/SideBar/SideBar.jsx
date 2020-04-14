@@ -11,8 +11,8 @@ class SideBar extends Component{
         this.state = {
           tableData:
           [
-            {'phone_number': '+15109442407', 'read': 'yes'},
-            {'phone_number': '+13129331585', 'read': 'no'}
+            {'phone_number': '+15109442407', 'seen': 'yes'},
+            {'phone_number': '+13129331585', 'seen': 'no'}
           ],
           displayForm: false,
           value: ''
@@ -31,7 +31,7 @@ class SideBar extends Component{
           username: 'test_user@test_user.com'
         })
         .then(response => {
-          this.setState({ tableData: response.data.phone_numbers });
+          // this.setState({ tableData: response.data.phone_numbers });
         })
         .catch(function (error) {
           console.log(error);
@@ -49,7 +49,7 @@ class SideBar extends Component{
           username: 'test_user@test_user.com'
         })
         .then(response => {
-          this.setState({ tableData: response.data.phone_numbers });
+          // this.setState({ tableData: response.data.phone_numbers });
         })
         .catch(function (error) {
           console.log(error);
@@ -88,12 +88,14 @@ class SideBar extends Component{
                 <Container className="fullscreen">
                   <Row>
                       <Col>
-                          <Image src="https://loremflickr.com/50/50" />
+                          <Image src="https://via.placeholder.com/50x50.png?text=Jigsaw" />
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <Button onClick={this.startNewChat}>New Chat</Button>
+                      <Row style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                      <Button onClick={this.startNewChat}>New Chat</Button>
+                      </Row>
                         {this.state.displayForm ? 
                         <form onSubmit={this.handleSubmit}>
                         <input

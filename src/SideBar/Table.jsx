@@ -26,9 +26,16 @@ export default class Table extends React.Component {
       var items = this.props.data;
       var keys = this.getKeys();
       return items.map((row, index)=>{
-        return (
-          <tr className={row.seen} onClick={()=>this.handleClick(row.phone_number)}><RenderRow key={index} data={row} keys={keys}/></tr>)
-      })
+        if(row.seen == 'no'){
+          return (
+             <tr className={row.seen} onClick={()=>this.handleClick(row.phone_number)}><RenderRow key={index} data={row} keys={keys}/><span className="green">•</span></tr>
+            )  
+        }
+        else if(row.seen == 'yes'){
+          return (
+            <tr className={row.seen} onClick={()=>this.handleClick(row.phone_number)}><RenderRow key={index} data={row} keys={keys}/><span> </span></tr>)  
+        }
+        })
     }
     
     handleClick= function(row) {
