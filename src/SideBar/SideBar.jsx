@@ -26,7 +26,7 @@ class SideBar extends Component{
       }
       componentDidMount() {
         
-        axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_phone_numbers_by_username', {
+        axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/all_phone_numbers_by_username', {
           username: 'test_user@test_user.com'
         })
         .then(response => {
@@ -44,7 +44,7 @@ class SideBar extends Component{
 
       getPhoneNumber() {
         
-        axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_phone_numbers_by_username', {
+        axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/all_phone_numbers_by_username', {
           username: 'test_user@test_user.com'
         })
         .then(response => {
