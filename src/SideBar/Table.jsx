@@ -44,7 +44,7 @@ export default class Table extends React.Component {
     }
 
     phoneNumberClicked = function(phone_number){ 
-      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_messages_for_phone_number_and_username', {
+      axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/all_messages_for_phone_number_and_username', {
           username: 'test_user@test_user.com',
           "phone_number": phone_number
         })
@@ -63,7 +63,7 @@ export default class Table extends React.Component {
 
     }
     openConversation = function(conversation_id){
-      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_opened_by_user', {
+      axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_opened_by_user', {
         "conversation_id": conversation_id
         })
         .then(response => {
