@@ -35,7 +35,7 @@ class SideBar extends Component{
         .catch(function (error) {
           console.log(error);
         });
-        this.interval = setInterval(() => this.getPhoneNumber(), 3000);
+        this.interval = setInterval(() => this.getPhoneNumber(), 2000);
       }
 
       componentWillUnmount() {

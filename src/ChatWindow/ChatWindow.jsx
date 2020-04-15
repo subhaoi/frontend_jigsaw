@@ -38,7 +38,7 @@ class ChatWindow extends Component {
 
   onSubmit = function(message){
     if(this.state.messages.length > 0){
-      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/message_sent_by_user', {
+      axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/message_sent_by_user', {
       'conversation_id': this.props.conversation_id,
       'body': message , 
       'phone_number': this.props.phone_number
@@ -53,7 +53,7 @@ class ChatWindow extends Component {
       });
     }
     else if(this.state.messages.length == 0){
-      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/message_sent_by_user', {
+      axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/message_sent_by_user', {
       'body': message , 
       'phone_number': this.props.phone_number,
       'new_conversation': true
@@ -109,7 +109,7 @@ class ChatWindow extends Component {
   }
 
   retrieveMessagesAgain = function(phone_number){ 
-    axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/all_messages_for_phone_number_and_username', {
+    axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/all_messages_for_phone_number_and_username', {
         username: 'test_user@test_user.com',
         "phone_number": phone_number
       })
@@ -126,7 +126,7 @@ class ChatWindow extends Component {
 
   componentDidMount() {
     this.setState({ messages: this.props.messages, user: this.props.user });
-    this.interval = setInterval(() =>  this.retrieveMessagesAgain(this.props.phone_number) , 10000);
+    this.interval = setInterval(() =>  this.retrieveMessagesAgain(this.props.phone_number) , 2000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -134,7 +134,7 @@ class ChatWindow extends Component {
 
   closeConversation = function(){
       this.props.closeChat(false)
-      axios.post('http://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_closed_by_user',{
+      axios.post('https://ec2-18-209-60-130.compute-1.amazonaws.com/conversation_closed_by_user',{
       "conversation_id": this.props.conversation_id
     }).then(response =>{
       this.props.closeChat(false)
