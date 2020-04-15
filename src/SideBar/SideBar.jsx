@@ -60,6 +60,7 @@ class SideBar extends Component{
         // do not forget to bind getData in constructor
         // console.log(val);
         this.props.sendDataFromSideBarToHome(val)
+        this.setState({displayForm:false});
     }
     getData2(val){
       // do not forget to bind getData in constructor

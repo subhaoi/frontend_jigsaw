@@ -65,3 +65,13 @@
     color:#000000;
     font-size: 20px;
   }
+
+  tr.selected {
+    height: 100px;
+    text-align: center;
+    padding-left: 10px;
+    background-color: white;
+    width: 100%;
+    color:#264AFF;
+    font-size: 20px;
+  }
